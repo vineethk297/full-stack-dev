@@ -1,37 +1,74 @@
-import './App.css'
+import {useState} from 'react'
 
-const Hello = (props) => {
+const Display = (props) => {
     return (
         <div>
-            <p>Hello World! This is {props.name}</p>
+            {props.counter}
         </div>
     )
 }
 
-const App = () => {
-    console.log("This is the first console log!")
-    const now = new Date()
-    const a = 10
-    const b = 20
-    console.log(now, a+b)
+const Button = (props) => {
+    return (
+        <button onClick={props.onClick}> {props.text} </button>
+    )
+}
 
-    const family = [
-        {name : 'Vineeth', age : 28},
-        {name : 'Toksh', age : 26}
-    ]
+const App =() => {
+    const [left, leftClick] = useState(0)
+    const [right, rightClick] = useState(0)
+    const [allClicks, setAll] = useState([])
+
+    const handleLeftClick = () => {
+        setAll(allClicks.concat('L'))
+        leftClick(left + 1)
+    }
+
+    const handleRightClick = () => {
+        setAll(allClicks.concat('R'))
+        rightClick(right + 1)
+    }
+
     return (
         <div>
-            <p>This is first App!</p>
-            <p>It is {now.toString()}</p>
-            <p> {a} + {b} is {a+b}</p>
-            <Hello name = "Vineeth"/>
-            <Hello name = "Vineeth!"/>
-            <Hello name = "Vineeth!!"/>
-            <p>This is {family[0].name} who is {family[0].age} years old</p>
-            <p>This is his wife {family[1].name} who is {family[1].age} years old</p>
-
+            {left}
+            <button onClick={handleLeftClick}>
+                left click
+            </button>
+            <button onClick={handleRightClick}>
+                right click
+            </button>
+            {right}
+            <p>{allClicks.join('')}</p>
         </div>
     )
 }
+
+// const App = () => {
+//     const [counter, setCounter] = useState(0)
+//
+//     const increaseCounter = () => setCounter(counter + 1)
+//
+//     const decreaseCounter = () => setCounter(counter - 1)
+//
+//     const resetCounter = () => setCounter(0)
+//
+//
+//     return (
+//         <div>
+//             <Display counter = {counter}/>
+//             <Button onClick = {decreaseCounter} text = 'Minus'/>
+//             <Button onClick = {resetCounter} text = 'Reset'/>
+//             <Button onClick = {increaseCounter} text = 'Plus'/>
+//         </div>
+//     )
+// }
 
 export default App
+
+
+/*
+*******************  Syntax  *********************
+* setTimeout(() => setCounter(counter + 1), 1000)  for invoke function callback in par1 every par2 seconds
+* <button onClick={handleClick}>Click</button>
+ */
